@@ -4,7 +4,7 @@ const postcss = require('postcss');
 const tailwindcss = require('tailwindcss');
 const altPlugin = require('./index.js');
 
-const generatePluginCss = (variants = [], pluginOptions = {}, tailwindOptions = {}) => {
+const generatePluginCss = (variants = [], pluginOptions = {}, tailwindOptions = {}, css = null) => {
   return postcss(
     tailwindcss({
       theme: {
@@ -16,7 +16,7 @@ const generatePluginCss = (variants = [], pluginOptions = {}, tailwindOptions = 
       plugins: [
         altPlugin(pluginOptions),
         ({ addUtilities }) => {
-          addUtilities({
+          addUtilities(css ? css : {
             '.block': {
               'display': 'block',
             },
@@ -287,6 +287,29 @@ test('the variants work well with Tailwind’s prefix option', () => {
       }
       .alt .tw-group:focus-within .alt\\:group-focus-within\\:tw-block {
         display: block;
+      }
+    `);
+  });
+});
+
+test('the variants work on utilities that include pseudo-elements', () => {
+  return generatePluginCss(['alt', 'alt-hover', 'alt-group-focus-within'], {}, {}, {
+    '.placeholder-gray-400::placeholder': {
+      'color': '#cbd5e0',
+    },
+  }).then(css => {
+    expect(css).toMatchCss(`
+      .placeholder-gray-400::placeholder {
+        color: #cbd5e0
+      }
+      .alt .alt\\:placeholder-gray-400::placeholder {
+        color: #cbd5e0
+      }
+      .alt .alt\\:hover\\:placeholder-gray-400:hover::placeholder {
+        color: #cbd5e0
+      }
+      .alt .group:focus-within .alt\\:group-focus-within\\:placeholder-gray-400::placeholder {
+        color: #cbd5e0
       }
     `);
   });
