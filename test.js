@@ -4,7 +4,7 @@ const postcss = require('postcss');
 const tailwindcss = require('tailwindcss');
 const altPlugin = require('./index.js');
 
-const generatePluginCss = (variants = [], pluginOptions = {}) => {
+const generatePluginCss = (variants = [], pluginOptions = {}, tailwindOptions = {}) => {
   return postcss(
     tailwindcss({
       theme: {
@@ -23,6 +23,7 @@ const generatePluginCss = (variants = [], pluginOptions = {}) => {
           }, variants);
         },
       ],
+      ...tailwindOptions,
     })
   )
   .process('@tailwind utilities', {
@@ -250,7 +251,7 @@ test('the alt class name can be customized', () => {
 });
 
 test('custom class names are escaped', () => {
-  return generatePluginCss(['alt'], {
+  return generatePluginCss(['alt', 'alt-hover', 'alt-group-focus-within'], {
     className: 'test-1/2',
   }).then(css => {
     expect(css).toMatchCss(`
@@ -258,6 +259,33 @@ test('custom class names are escaped', () => {
         display: block;
       }
       .test-1\\/2 .test-1\\/2\\:block {
+        display: block;
+      }
+      .test-1\\/2 .test-1\\/2\\:hover\\:block:hover {
+        display: block;
+      }
+      .test-1\\/2 .group:focus-within .test-1\\/2\\:group-focus-within\\:block {
+        display: block;
+      }
+    `);
+  });
+});
+
+test('the variants work well with Tailwind’s prefix option', () => {
+  return generatePluginCss(['alt', 'alt-hover', 'alt-group-focus-within'], {}, {
+    prefix: 'tw-',
+  }).then(css => {
+    expect(css).toMatchCss(`
+      .tw-block {
+        display: block;
+      }
+      .alt .alt\\:tw-block {
+        display: block;
+      }
+      .alt .alt\\:hover\\:tw-block:hover {
+        display: block;
+      }
+      .alt .tw-group:focus-within .alt\\:group-focus-within\\:tw-block {
         display: block;
       }
     `);

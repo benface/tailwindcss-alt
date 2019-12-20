@@ -9,6 +9,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ### Fixed
 - The `className` option is now properly escaped in the generated CSS
+- Tailwind’s `prefix` option is now properly applied to the `.group` part of the selector for group variants
 
 ## [1.0.0] - 2019-12-20
 

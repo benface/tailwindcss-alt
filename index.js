@@ -2,11 +2,17 @@ const _ = require('lodash');
 const selectorParser = require('postcss-selector-parser');
 
 module.exports = function(options = {}) {
-  return ({ addVariant, e }) => {
+  return ({ addVariant, config, e }) => {
     const defaultOptions = {
       className: 'alt',
     };
     options = _.defaults({}, options, defaultOptions);
+
+    const prefixClass = function(className) {
+      const prefix = config('prefix');
+      const getPrefix = typeof prefix === 'function' ? prefix : () => prefix;
+      return `${getPrefix(`.${className}`)}${className}`;
+    };
 
     const altPseudoClassVariant = function(pseudoClass) {
       return ({ modifySelectors, separator }) => {
@@ -28,7 +34,7 @@ module.exports = function(options = {}) {
           return selectorParser(selectors => {
             selectors.walkClasses(classNode => {
               classNode.value = `${options.className}${separator}group-${pseudoClass}${separator}${classNode.value}`;
-              classNode.parent.insertBefore(classNode, selectorParser().astSync(`.${e(options.className)} .group:${pseudoClass} `));
+              classNode.parent.insertBefore(classNode, selectorParser().astSync(`.${e(options.className)} .${e(prefixClass('group'))}:${pseudoClass} `));
             });
           }).processSync(selector);
         });
