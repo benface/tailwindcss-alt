@@ -300,16 +300,16 @@ test('the variants work on utilities that include pseudo-elements', () => {
   }).then(css => {
     expect(css).toMatchCss(`
       .placeholder-gray-400::placeholder {
-        color: #cbd5e0
+        color: #cbd5e0;
       }
       .alt .alt\\:placeholder-gray-400::placeholder {
-        color: #cbd5e0
+        color: #cbd5e0;
       }
       .alt .alt\\:hover\\:placeholder-gray-400:hover::placeholder {
-        color: #cbd5e0
+        color: #cbd5e0;
       }
       .alt .group:focus-within .alt\\:group-focus-within\\:placeholder-gray-400::placeholder {
-        color: #cbd5e0
+        color: #cbd5e0;
       }
     `);
   });
