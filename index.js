@@ -2,7 +2,7 @@ const _ = require('lodash');
 const selectorParser = require('postcss-selector-parser');
 
 module.exports = function(options = {}) {
-  return ({ addVariant }) => {
+  return ({ addVariant, e }) => {
     const defaultOptions = {
       className: 'alt',
     };
@@ -14,7 +14,7 @@ module.exports = function(options = {}) {
           return selectorParser(selectors => {
             selectors.walkClasses(classNode => {
               classNode.value = `${options.className}${separator}${pseudoClass}${separator}${classNode.value}`;
-              classNode.parent.insertBefore(classNode, selectorParser().astSync(`.${options.className} `));
+              classNode.parent.insertBefore(classNode, selectorParser().astSync(`.${e(options.className)} `));
               classNode.parent.insertAfter(classNode, selectorParser.pseudo({ value: `:${pseudoClass}` }));
             });
           }).processSync(selector);
@@ -28,7 +28,7 @@ module.exports = function(options = {}) {
           return selectorParser(selectors => {
             selectors.walkClasses(classNode => {
               classNode.value = `${options.className}${separator}group-${pseudoClass}${separator}${classNode.value}`;
-              classNode.parent.insertBefore(classNode, selectorParser().astSync(`.${options.className} .group:${pseudoClass} `));
+              classNode.parent.insertBefore(classNode, selectorParser().astSync(`.${e(options.className)} .group:${pseudoClass} `));
             });
           }).processSync(selector);
         });
@@ -40,7 +40,7 @@ module.exports = function(options = {}) {
         return selectorParser(selectors => {
           selectors.walkClasses(classNode => {
             classNode.value = `${options.className}${separator}${classNode.value}`;
-            classNode.parent.insertBefore(classNode, selectorParser().astSync(`.${options.className} `));
+            classNode.parent.insertBefore(classNode, selectorParser().astSync(`.${e(options.className)} `));
           });
         }).processSync(selector);
       });

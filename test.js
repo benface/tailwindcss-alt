@@ -248,3 +248,18 @@ test('the alt class name can be customized', () => {
     `);
   });
 });
+
+test('custom class names are escaped', () => {
+  return generatePluginCss(['alt'], {
+    className: 'test-1/2',
+  }).then(css => {
+    expect(css).toMatchCss(`
+      .block {
+        display: block;
+      }
+      .test-1\\/2 .test-1\\/2\\:block {
+        display: block;
+      }
+    `);
+  });
+});
