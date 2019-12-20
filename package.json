@@ -1,6 +1,6 @@
 {
   "name": "tailwindcss-alt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tailwind CSS plugin to add variants that can be used to change an element’s styles when one of its ancestors has a given class",
   "author": "Benoît Rouleau <benoit.rouleau@icloud.com>",
   "license": "ISC",
