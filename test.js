@@ -4,7 +4,7 @@ const postcss = require('postcss');
 const tailwindcss = require('tailwindcss');
 const altPlugin = require('./index.js');
 
-const generatePluginCss = (variants = []) => {
+const generatePluginCss = (variants = [], pluginOptions = {}) => {
   return postcss(
     tailwindcss({
       theme: {
@@ -14,8 +14,8 @@ const generatePluginCss = (variants = []) => {
       },
       corePlugins: false,
       plugins: [
-        altPlugin(),
-        ({ e, addUtilities }) => {
+        altPlugin(pluginOptions),
+        ({ addUtilities }) => {
           addUtilities({
             '.block': {
               'display': 'block',
@@ -223,6 +223,27 @@ test('all variants can be chained with the responsive variant', () => {
         .alt .group:disabled .sm\\:alt\\:group-disabled\\:block {
           display: block;
         }
+      }
+    `);
+  });
+});
+
+test('the alt class name can be customized', () => {
+  return generatePluginCss(['alt', 'alt-hover', 'alt-group-focus-within'], {
+    className: 'special',
+  }).then(css => {
+    expect(css).toMatchCss(`
+      .block {
+        display: block;
+      }
+      .special .special\\:block {
+        display: block;
+      }
+      .special .special\\:hover\\:block:hover {
+        display: block;
+      }
+      .special .group:focus-within .special\\:group-focus-within\\:block {
+        display: block;
       }
     `);
   });
