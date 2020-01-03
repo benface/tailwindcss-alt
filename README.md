@@ -10,7 +10,7 @@ npm install tailwindcss-alt
 
 ```js
 // tailwind.config.js
-{
+module.exports = {
   variants: {
     display: ['alt', 'alt-hover', 'alt-focus', 'alt-focus-within', 'alt-active', 'alt-visited', 'alt-disabled', 'alt-group-hover', 'alt-group-focus', 'alt-group-focus-within', 'alt-group-active', 'alt-group-visited', 'alt-group-disabled', 'responsive'],
   },
@@ -19,7 +19,7 @@ npm install tailwindcss-alt
       className: 'alt', // defaults to this value
     }),
   ],
-}
+};
 ```
 
 The above configuration would generate the following CSS:

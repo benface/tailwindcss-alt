@@ -1,17 +1,32 @@
+const plugin = require('tailwindcss/plugin');
 const _ = require('lodash');
 const selectorParser = require('postcss-selector-parser');
 
-module.exports = function(options = {}) {
-  return ({ addVariant, config, e }) => {
-    const defaultOptions = {
-      className: 'alt',
-    };
+const defaultOptions = {
+  className: 'alt',
+};
+
+module.exports = plugin.withOptions(function(options = {}) {
+  return function({ addVariant, config, e }) {
     options = _.defaults({}, options, defaultOptions);
 
     const prefixClass = function(className) {
       const prefix = config('prefix');
       const getPrefix = typeof prefix === 'function' ? prefix : () => prefix;
       return `${getPrefix(`.${className}`)}${className}`;
+    };
+
+    const altVariant = function() {
+      return ({ modifySelectors, separator }) => {
+        modifySelectors(({ selector }) => {
+          return selectorParser(selectors => {
+            selectors.walkClasses(classNode => {
+              classNode.value = `${options.className}${separator}${classNode.value}`;
+              classNode.parent.insertBefore(classNode, selectorParser().astSync(`.${e(options.className)} `));
+            });
+          }).processSync(selector);
+        });
+      };
     };
 
     const altPseudoClassVariant = function(pseudoClass) {
@@ -34,24 +49,14 @@ module.exports = function(options = {}) {
           return selectorParser(selectors => {
             selectors.walkClasses(classNode => {
               classNode.value = `${options.className}${separator}group-${pseudoClass}${separator}${classNode.value}`;
-              classNode.parent.insertBefore(classNode, selectorParser().astSync(`.${e(options.className)} .${e(prefixClass('group'))}:${pseudoClass} `));
+              classNode.parent.insertBefore(classNode, selectorParser().astSync(`.${e(options.className)} .${prefixClass('group')}:${pseudoClass} `));
             });
           }).processSync(selector);
         });
       };
     };
 
-    addVariant('alt', ({ modifySelectors, separator }) => {
-      modifySelectors(({ selector }) => {
-        return selectorParser(selectors => {
-          selectors.walkClasses(classNode => {
-            classNode.value = `${options.className}${separator}${classNode.value}`;
-            classNode.parent.insertBefore(classNode, selectorParser().astSync(`.${e(options.className)} `));
-          });
-        }).processSync(selector);
-      });
-    });
-
+    addVariant('alt', altVariant());
     addVariant('alt-hover', altPseudoClassVariant('hover'));
     addVariant('alt-focus', altPseudoClassVariant('focus'));
     addVariant('alt-focus-within', altPseudoClassVariant('focus-within'));
@@ -65,4 +70,4 @@ module.exports = function(options = {}) {
     addVariant('alt-group-visited', altGroupPseudoClassVariant('visited'));
     addVariant('alt-group-disabled', altGroupPseudoClassVariant('disabled'));
   };
-};
+});
