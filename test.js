@@ -88,7 +88,7 @@ test('the alt-group-hover variant is working', () => {
 });
 
 test('all the variants are working', () => {
-  return generatePluginCss(['alt', 'alt-hover', 'alt-focus', 'alt-focus-within', 'alt-active', 'alt-visited', 'alt-disabled', 'alt-group-hover', 'alt-group-focus', 'alt-group-focus-within', 'alt-group-active', 'alt-group-visited', 'alt-group-disabled']).then(css => {
+  return generatePluginCss(['alt', 'alt-hover', 'alt-focus', 'alt-focus-within', 'alt-active', 'alt-visited', 'alt-disabled', 'alt-first', 'alt-last', 'alt-odd', 'alt-even', 'alt-group-hover', 'alt-group-focus', 'alt-group-focus-within', 'alt-group-active', 'alt-group-visited', 'alt-group-disabled']).then(css => {
     expect(css).toMatchCss(`
       .block {
         display: block;
@@ -112,6 +112,18 @@ test('all the variants are working', () => {
         display: block;
       }
       .alt .alt\\:disabled\\:block:disabled {
+        display: block;
+      }
+      .alt .alt\\:first\\:block:first-child {
+        display: block;
+      }
+      .alt .alt\\:last\\:block:last-child {
+        display: block;
+      }
+      .alt .alt\\:odd\\:block:nth-child(odd) {
+        display: block;
+      }
+      .alt .alt\\:even\\:block:nth-child(even) {
         display: block;
       }
       .alt .group:hover .alt\\:group-hover\\:block {
@@ -137,7 +149,7 @@ test('all the variants are working', () => {
 });
 
 test('all variants can be chained with the responsive variant', () => {
-  return generatePluginCss(['alt', 'alt-hover', 'alt-focus', 'alt-focus-within', 'alt-active', 'alt-visited', 'alt-disabled', 'alt-group-hover', 'alt-group-focus', 'alt-group-focus-within', 'alt-group-active', 'alt-group-visited', 'alt-group-disabled', 'responsive']).then(css => {
+  return generatePluginCss(['alt', 'alt-hover', 'alt-focus', 'alt-focus-within', 'alt-active', 'alt-visited', 'alt-disabled', 'alt-first', 'alt-last', 'alt-odd', 'alt-even', 'alt-group-hover', 'alt-group-focus', 'alt-group-focus-within', 'alt-group-active', 'alt-group-visited', 'alt-group-disabled', 'responsive']).then(css => {
     expect(css).toMatchCss(`
       .block {
         display: block;
@@ -161,6 +173,18 @@ test('all variants can be chained with the responsive variant', () => {
         display: block;
       }
       .alt .alt\\:disabled\\:block:disabled {
+        display: block;
+      }
+      .alt .alt\\:first\\:block:first-child {
+        display: block;
+      }
+      .alt .alt\\:last\\:block:last-child {
+        display: block;
+      }
+      .alt .alt\\:odd\\:block:nth-child(odd) {
+        display: block;
+      }
+      .alt .alt\\:even\\:block:nth-child(even) {
         display: block;
       }
       .alt .group:hover .alt\\:group-hover\\:block {
@@ -204,6 +228,18 @@ test('all variants can be chained with the responsive variant', () => {
           display: block;
         }
         .alt .sm\\:alt\\:disabled\\:block:disabled {
+          display: block;
+        }
+        .alt .sm\\:alt\\:first\\:block:first-child {
+          display: block;
+        }
+        .alt .sm\\:alt\\:last\\:block:last-child {
+          display: block;
+        }
+        .alt .sm\\:alt\\:odd\\:block:nth-child(odd) {
+          display: block;
+        }
+        .alt .sm\\:alt\\:even\\:block:nth-child(even) {
           display: block;
         }
         .alt .group:hover .sm\\:alt\\:group-hover\\:block {

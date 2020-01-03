@@ -7,6 +7,9 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ## [2.0.0] - XXXX-XX-XX
 
+### Added
+- Added 4 variants: `alt-first`, `alt-last`, `alt-odd`, and `alt-even`
+
 ### Changed
 - Changed to use Tailwind 1.2’s new plugin definition syntax
 

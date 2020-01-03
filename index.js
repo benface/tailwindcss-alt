@@ -29,14 +29,15 @@ module.exports = plugin.withOptions(function(options = {}) {
       };
     };
 
-    const altPseudoClassVariant = function(pseudoClass) {
+    const altPseudoClassVariant = function(pseudoClass, pseudoSelector = null) {
+      pseudoSelector = pseudoSelector ? pseudoSelector : `:${pseudoClass}`;
       return ({ modifySelectors, separator }) => {
         modifySelectors(({ selector }) => {
           return selectorParser(selectors => {
             selectors.walkClasses(classNode => {
               classNode.value = `${options.className}${separator}${pseudoClass}${separator}${classNode.value}`;
               classNode.parent.insertBefore(classNode, selectorParser().astSync(`.${e(options.className)} `));
-              classNode.parent.insertAfter(classNode, selectorParser.pseudo({ value: `:${pseudoClass}` }));
+              classNode.parent.insertAfter(classNode, selectorParser.pseudo({ value: pseudoSelector }));
             });
           }).processSync(selector);
         });
@@ -63,6 +64,10 @@ module.exports = plugin.withOptions(function(options = {}) {
     addVariant('alt-active', altPseudoClassVariant('active'));
     addVariant('alt-visited', altPseudoClassVariant('visited'));
     addVariant('alt-disabled', altPseudoClassVariant('disabled'));
+    addVariant('alt-first', altPseudoClassVariant('first', ':first-child'));
+    addVariant('alt-last', altPseudoClassVariant('last', ':last-child'));
+    addVariant('alt-odd', altPseudoClassVariant('odd', ':nth-child(odd)'));
+    addVariant('alt-even', altPseudoClassVariant('even', ':nth-child(even)'));
     addVariant('alt-group-hover', altGroupPseudoClassVariant('hover'));
     addVariant('alt-group-focus', altGroupPseudoClassVariant('focus'));
     addVariant('alt-group-focus-within', altGroupPseudoClassVariant('focus-within'));

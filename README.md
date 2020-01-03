@@ -12,7 +12,7 @@ npm install tailwindcss-alt
 // tailwind.config.js
 module.exports = {
   variants: {
-    display: ['alt', 'alt-hover', 'alt-focus', 'alt-focus-within', 'alt-active', 'alt-visited', 'alt-disabled', 'alt-group-hover', 'alt-group-focus', 'alt-group-focus-within', 'alt-group-active', 'alt-group-visited', 'alt-group-disabled', 'responsive'],
+    display: ['alt', 'alt-hover', 'alt-focus', 'alt-focus-within', 'alt-active', 'alt-visited', 'alt-disabled', 'alt-first', 'alt-last', 'alt-odd', 'alt-even', 'alt-group-hover', 'alt-group-focus', 'alt-group-focus-within', 'alt-group-active', 'alt-group-visited', 'alt-group-disabled', 'responsive'],
   },
   plugins: [
     require('tailwindcss-alt')({
@@ -54,6 +54,22 @@ The above configuration would generate the following CSS:
 }
 
 .alt .alt\:disabled\:block:disabled {
+  display: block;
+}
+
+.alt .alt\:first\:block:first-child {
+  display: block;
+}
+
+.alt .alt\:last\:block:last-child {
+  display: block;
+}
+
+.alt .alt\:odd\:block:nth-child(odd) {
+  display: block;
+}
+
+.alt .alt\:even\:block:nth-child(even) {
   display: block;
 }
 
