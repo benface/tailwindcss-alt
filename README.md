@@ -1,5 +1,13 @@
 # Alt Variant Plugin for Tailwind CSS
 
+## Introduction
+
+This plugin adds a general-purpose `alt` (short for “alternate”) variant to Tailwind CSS, which can be used to change an element’s styles when one of its ancestors (possibly `body` or `html`) has a given class (`alt` by default, but can be customized). It can be used for toggling between two themes (think dark mode), or for components that have two distinct states you want to switch between via JavaScript (by adding/removing the `alt` class from the parent element).
+
+## Requirements
+
+This plugin requires Tailwind CSS 1.2 or later. If your project uses an older version of Tailwind, you should install the latest 1.x version of this plugin (`npm install tailwindcss-alt@1.x`).
+
 ## Installation
 
 ```bash
