@@ -17,8 +17,8 @@ const generatePluginCss = (variants = [], pluginOptions = {}, tailwindOptions = 
         altPlugin(pluginOptions),
         ({ addUtilities }) => {
           addUtilities(css ? css : {
-            '.block': {
-              'display': 'block',
+            '.w-1\\/2': {
+              'width': '50%',
             },
           }, variants);
         },
@@ -41,8 +41,8 @@ expect.extend({
 test('the plugin doesn’t do anything if the variants aren’t used', () => {
   return generatePluginCss().then(css => {
     expect(css).toMatchCss(`
-      .block {
-        display: block;
+      .w-1\\/2 {
+        width: 50%;
       }
     `);
   });
@@ -51,11 +51,11 @@ test('the plugin doesn’t do anything if the variants aren’t used', () => {
 test('the alt variant is working', () => {
   return generatePluginCss(['alt']).then(css => {
     expect(css).toMatchCss(`
-      .block {
-        display: block;
+      .w-1\\/2 {
+        width: 50%;
       }
-      .alt .alt\\:block {
-        display: block;
+      .alt .alt\\:w-1\\/2 {
+        width: 50%;
       }
     `);
   });
@@ -64,11 +64,11 @@ test('the alt variant is working', () => {
 test('the alt-hover variant is working', () => {
   return generatePluginCss(['alt-hover']).then(css => {
     expect(css).toMatchCss(`
-      .block {
-        display: block;
+      .w-1\\/2 {
+        width: 50%;
       }
-      .alt .alt\\:hover\\:block:hover {
-        display: block;
+      .alt .alt\\:hover\\:w-1\\/2:hover {
+        width: 50%;
       }
     `);
   });
@@ -77,11 +77,11 @@ test('the alt-hover variant is working', () => {
 test('the alt-group-hover variant is working', () => {
   return generatePluginCss(['alt-group-hover']).then(css => {
     expect(css).toMatchCss(`
-      .block {
-        display: block;
+      .w-1\\/2 {
+        width: 50%;
       }
-      .alt .group:hover .alt\\:group-hover\\:block {
-        display: block;
+      .alt .group:hover .alt\\:group-hover\\:w-1\\/2 {
+        width: 50%;
       }
     `);
   });
@@ -90,59 +90,59 @@ test('the alt-group-hover variant is working', () => {
 test('all the variants are working', () => {
   return generatePluginCss(['alt', 'alt-hover', 'alt-focus', 'alt-focus-within', 'alt-active', 'alt-visited', 'alt-disabled', 'alt-first', 'alt-last', 'alt-odd', 'alt-even', 'alt-group-hover', 'alt-group-focus', 'alt-group-focus-within', 'alt-group-active', 'alt-group-visited', 'alt-group-disabled']).then(css => {
     expect(css).toMatchCss(`
-      .block {
-        display: block;
+      .w-1\\/2 {
+        width: 50%;
       }
-      .alt .alt\\:block {
-        display: block;
+      .alt .alt\\:w-1\\/2 {
+        width: 50%;
       }
-      .alt .alt\\:hover\\:block:hover {
-        display: block;
+      .alt .alt\\:hover\\:w-1\\/2:hover {
+        width: 50%;
       }
-      .alt .alt\\:focus\\:block:focus {
-        display: block;
+      .alt .alt\\:focus\\:w-1\\/2:focus {
+        width: 50%;
       }
-      .alt .alt\\:focus-within\\:block:focus-within {
-        display: block;
+      .alt .alt\\:focus-within\\:w-1\\/2:focus-within {
+        width: 50%;
       }
-      .alt .alt\\:active\\:block:active {
-        display: block;
+      .alt .alt\\:active\\:w-1\\/2:active {
+        width: 50%;
       }
-      .alt .alt\\:visited\\:block:visited {
-        display: block;
+      .alt .alt\\:visited\\:w-1\\/2:visited {
+        width: 50%;
       }
-      .alt .alt\\:disabled\\:block:disabled {
-        display: block;
+      .alt .alt\\:disabled\\:w-1\\/2:disabled {
+        width: 50%;
       }
-      .alt .alt\\:first\\:block:first-child {
-        display: block;
+      .alt .alt\\:first\\:w-1\\/2:first-child {
+        width: 50%;
       }
-      .alt .alt\\:last\\:block:last-child {
-        display: block;
+      .alt .alt\\:last\\:w-1\\/2:last-child {
+        width: 50%;
       }
-      .alt .alt\\:odd\\:block:nth-child(odd) {
-        display: block;
+      .alt .alt\\:odd\\:w-1\\/2:nth-child(odd) {
+        width: 50%;
       }
-      .alt .alt\\:even\\:block:nth-child(even) {
-        display: block;
+      .alt .alt\\:even\\:w-1\\/2:nth-child(even) {
+        width: 50%;
       }
-      .alt .group:hover .alt\\:group-hover\\:block {
-        display: block;
+      .alt .group:hover .alt\\:group-hover\\:w-1\\/2 {
+        width: 50%;
       }
-      .alt .group:focus .alt\\:group-focus\\:block {
-        display: block;
+      .alt .group:focus .alt\\:group-focus\\:w-1\\/2 {
+        width: 50%;
       }
-      .alt .group:focus-within .alt\\:group-focus-within\\:block {
-        display: block;
+      .alt .group:focus-within .alt\\:group-focus-within\\:w-1\\/2 {
+        width: 50%;
       }
-      .alt .group:active .alt\\:group-active\\:block {
-        display: block;
+      .alt .group:active .alt\\:group-active\\:w-1\\/2 {
+        width: 50%;
       }
-      .alt .group:visited .alt\\:group-visited\\:block {
-        display: block;
+      .alt .group:visited .alt\\:group-visited\\:w-1\\/2 {
+        width: 50%;
       }
-      .alt .group:disabled .alt\\:group-disabled\\:block {
-        display: block;
+      .alt .group:disabled .alt\\:group-disabled\\:w-1\\/2 {
+        width: 50%;
       }
     `);
   });
@@ -151,114 +151,114 @@ test('all the variants are working', () => {
 test('all variants can be chained with the responsive variant', () => {
   return generatePluginCss(['alt', 'alt-hover', 'alt-focus', 'alt-focus-within', 'alt-active', 'alt-visited', 'alt-disabled', 'alt-first', 'alt-last', 'alt-odd', 'alt-even', 'alt-group-hover', 'alt-group-focus', 'alt-group-focus-within', 'alt-group-active', 'alt-group-visited', 'alt-group-disabled', 'responsive']).then(css => {
     expect(css).toMatchCss(`
-      .block {
-        display: block;
+      .w-1\\/2 {
+        width: 50%;
       }
-      .alt .alt\\:block {
-        display: block;
+      .alt .alt\\:w-1\\/2 {
+        width: 50%;
       }
-      .alt .alt\\:hover\\:block:hover {
-        display: block;
+      .alt .alt\\:hover\\:w-1\\/2:hover {
+        width: 50%;
       }
-      .alt .alt\\:focus\\:block:focus {
-        display: block;
+      .alt .alt\\:focus\\:w-1\\/2:focus {
+        width: 50%;
       }
-      .alt .alt\\:focus-within\\:block:focus-within {
-        display: block;
+      .alt .alt\\:focus-within\\:w-1\\/2:focus-within {
+        width: 50%;
       }
-      .alt .alt\\:active\\:block:active {
-        display: block;
+      .alt .alt\\:active\\:w-1\\/2:active {
+        width: 50%;
       }
-      .alt .alt\\:visited\\:block:visited {
-        display: block;
+      .alt .alt\\:visited\\:w-1\\/2:visited {
+        width: 50%;
       }
-      .alt .alt\\:disabled\\:block:disabled {
-        display: block;
+      .alt .alt\\:disabled\\:w-1\\/2:disabled {
+        width: 50%;
       }
-      .alt .alt\\:first\\:block:first-child {
-        display: block;
+      .alt .alt\\:first\\:w-1\\/2:first-child {
+        width: 50%;
       }
-      .alt .alt\\:last\\:block:last-child {
-        display: block;
+      .alt .alt\\:last\\:w-1\\/2:last-child {
+        width: 50%;
       }
-      .alt .alt\\:odd\\:block:nth-child(odd) {
-        display: block;
+      .alt .alt\\:odd\\:w-1\\/2:nth-child(odd) {
+        width: 50%;
       }
-      .alt .alt\\:even\\:block:nth-child(even) {
-        display: block;
+      .alt .alt\\:even\\:w-1\\/2:nth-child(even) {
+        width: 50%;
       }
-      .alt .group:hover .alt\\:group-hover\\:block {
-        display: block;
+      .alt .group:hover .alt\\:group-hover\\:w-1\\/2 {
+        width: 50%;
       }
-      .alt .group:focus .alt\\:group-focus\\:block {
-        display: block;
+      .alt .group:focus .alt\\:group-focus\\:w-1\\/2 {
+        width: 50%;
       }
-      .alt .group:focus-within .alt\\:group-focus-within\\:block {
-        display: block;
+      .alt .group:focus-within .alt\\:group-focus-within\\:w-1\\/2 {
+        width: 50%;
       }
-      .alt .group:active .alt\\:group-active\\:block {
-        display: block;
+      .alt .group:active .alt\\:group-active\\:w-1\\/2 {
+        width: 50%;
       }
-      .alt .group:visited .alt\\:group-visited\\:block {
-        display: block;
+      .alt .group:visited .alt\\:group-visited\\:w-1\\/2 {
+        width: 50%;
       }
-      .alt .group:disabled .alt\\:group-disabled\\:block {
-        display: block;
+      .alt .group:disabled .alt\\:group-disabled\\:w-1\\/2 {
+        width: 50%;
       }
       @media (min-width: 640px) {
-        .sm\\:block {
-          display: block;
+        .sm\\:w-1\\/2 {
+          width: 50%;
         }
-        .alt .sm\\:alt\\:block {
-          display: block;
+        .alt .sm\\:alt\\:w-1\\/2 {
+          width: 50%;
         }
-        .alt .sm\\:alt\\:hover\\:block:hover {
-          display: block;
+        .alt .sm\\:alt\\:hover\\:w-1\\/2:hover {
+          width: 50%;
         }
-        .alt .sm\\:alt\\:focus\\:block:focus {
-          display: block;
+        .alt .sm\\:alt\\:focus\\:w-1\\/2:focus {
+          width: 50%;
         }
-        .alt .sm\\:alt\\:focus-within\\:block:focus-within {
-          display: block;
+        .alt .sm\\:alt\\:focus-within\\:w-1\\/2:focus-within {
+          width: 50%;
         }
-        .alt .sm\\:alt\\:active\\:block:active {
-          display: block;
+        .alt .sm\\:alt\\:active\\:w-1\\/2:active {
+          width: 50%;
         }
-        .alt .sm\\:alt\\:visited\\:block:visited {
-          display: block;
+        .alt .sm\\:alt\\:visited\\:w-1\\/2:visited {
+          width: 50%;
         }
-        .alt .sm\\:alt\\:disabled\\:block:disabled {
-          display: block;
+        .alt .sm\\:alt\\:disabled\\:w-1\\/2:disabled {
+          width: 50%;
         }
-        .alt .sm\\:alt\\:first\\:block:first-child {
-          display: block;
+        .alt .sm\\:alt\\:first\\:w-1\\/2:first-child {
+          width: 50%;
         }
-        .alt .sm\\:alt\\:last\\:block:last-child {
-          display: block;
+        .alt .sm\\:alt\\:last\\:w-1\\/2:last-child {
+          width: 50%;
         }
-        .alt .sm\\:alt\\:odd\\:block:nth-child(odd) {
-          display: block;
+        .alt .sm\\:alt\\:odd\\:w-1\\/2:nth-child(odd) {
+          width: 50%;
         }
-        .alt .sm\\:alt\\:even\\:block:nth-child(even) {
-          display: block;
+        .alt .sm\\:alt\\:even\\:w-1\\/2:nth-child(even) {
+          width: 50%;
         }
-        .alt .group:hover .sm\\:alt\\:group-hover\\:block {
-          display: block;
+        .alt .group:hover .sm\\:alt\\:group-hover\\:w-1\\/2 {
+          width: 50%;
         }
-        .alt .group:focus .sm\\:alt\\:group-focus\\:block {
-          display: block;
+        .alt .group:focus .sm\\:alt\\:group-focus\\:w-1\\/2 {
+          width: 50%;
         }
-        .alt .group:focus-within .sm\\:alt\\:group-focus-within\\:block {
-          display: block;
+        .alt .group:focus-within .sm\\:alt\\:group-focus-within\\:w-1\\/2 {
+          width: 50%;
         }
-        .alt .group:active .sm\\:alt\\:group-active\\:block {
-          display: block;
+        .alt .group:active .sm\\:alt\\:group-active\\:w-1\\/2 {
+          width: 50%;
         }
-        .alt .group:visited .sm\\:alt\\:group-visited\\:block {
-          display: block;
+        .alt .group:visited .sm\\:alt\\:group-visited\\:w-1\\/2 {
+          width: 50%;
         }
-        .alt .group:disabled .sm\\:alt\\:group-disabled\\:block {
-          display: block;
+        .alt .group:disabled .sm\\:alt\\:group-disabled\\:w-1\\/2 {
+          width: 50%;
         }
       }
     `);
@@ -270,17 +270,17 @@ test('the alt class name can be customized', () => {
     className: 'special',
   }).then(css => {
     expect(css).toMatchCss(`
-      .block {
-        display: block;
+      .w-1\\/2 {
+        width: 50%;
       }
-      .special .special\\:block {
-        display: block;
+      .special .special\\:w-1\\/2 {
+        width: 50%;
       }
-      .special .special\\:hover\\:block:hover {
-        display: block;
+      .special .special\\:hover\\:w-1\\/2:hover {
+        width: 50%;
       }
-      .special .group:focus-within .special\\:group-focus-within\\:block {
-        display: block;
+      .special .group:focus-within .special\\:group-focus-within\\:w-1\\/2 {
+        width: 50%;
       }
     `);
   });
@@ -291,17 +291,17 @@ test('custom class names are escaped', () => {
     className: 'test-1/2',
   }).then(css => {
     expect(css).toMatchCss(`
-      .block {
-        display: block;
+      .w-1\\/2 {
+        width: 50%;
       }
-      .test-1\\/2 .test-1\\/2\\:block {
-        display: block;
+      .test-1\\/2 .test-1\\/2\\:w-1\\/2 {
+        width: 50%;
       }
-      .test-1\\/2 .test-1\\/2\\:hover\\:block:hover {
-        display: block;
+      .test-1\\/2 .test-1\\/2\\:hover\\:w-1\\/2:hover {
+        width: 50%;
       }
-      .test-1\\/2 .group:focus-within .test-1\\/2\\:group-focus-within\\:block {
-        display: block;
+      .test-1\\/2 .group:focus-within .test-1\\/2\\:group-focus-within\\:w-1\\/2 {
+        width: 50%;
       }
     `);
   });
@@ -312,17 +312,17 @@ test('the variants work well with Tailwind’s prefix option', () => {
     prefix: 'tw-',
   }).then(css => {
     expect(css).toMatchCss(`
-      .tw-block {
-        display: block;
+      .tw-w-1\\/2 {
+        width: 50%;
       }
-      .alt .alt\\:tw-block {
-        display: block;
+      .alt .alt\\:tw-w-1\\/2 {
+        width: 50%;
       }
-      .alt .alt\\:hover\\:tw-block:hover {
-        display: block;
+      .alt .alt\\:hover\\:tw-w-1\\/2:hover {
+        width: 50%;
       }
-      .alt .tw-group:focus-within .alt\\:group-focus-within\\:tw-block {
-        display: block;
+      .alt .tw-group:focus-within .alt\\:group-focus-within\\:tw-w-1\\/2 {
+        width: 50%;
       }
     `);
   });
