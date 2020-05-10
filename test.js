@@ -265,21 +265,21 @@ test('all variants can be chained with the responsive variant', () => {
   });
 });
 
-test('the alt class name can be customized', () => {
-  return generatePluginCss(['alt', 'alt-hover', 'alt-group-focus-within'], {
-    className: 'special',
+test('the variants can be customized', () => {
+  return generatePluginCss(['dark', 'dark-hover', 'dark-group-focus-within'], {
+    variants: ['dark'],
   }).then(css => {
     expect(css).toMatchCss(`
       .w-1\\/2 {
         width: 50%;
       }
-      .special .special\\:w-1\\/2 {
+      .dark .dark\\:w-1\\/2 {
         width: 50%;
       }
-      .special .special\\:hover\\:w-1\\/2:hover {
+      .dark .dark\\:hover\\:w-1\\/2:hover {
         width: 50%;
       }
-      .special .group:focus-within .special\\:group-focus-within\\:w-1\\/2 {
+      .dark .group:focus-within .dark\\:group-focus-within\\:w-1\\/2 {
         width: 50%;
       }
     `);
@@ -287,11 +287,20 @@ test('the alt class name can be customized', () => {
 });
 
 test('custom class names are escaped', () => {
-  return generatePluginCss(['alt', 'alt-hover', 'alt-group-focus-within'], {
-    className: 'test-1/2',
+  return generatePluginCss(['alt', 'alt-hover', 'alt-group-focus-within', 'test-1/2', 'test-1/2-hover', 'test-1/2-group-focus-within'], {
+    variants: ['alt', 'test-1/2'],
   }).then(css => {
     expect(css).toMatchCss(`
       .w-1\\/2 {
+        width: 50%;
+      }
+      .alt .alt\\:w-1\\/2 {
+        width: 50%;
+      }
+      .alt .alt\\:hover\\:w-1\\/2:hover {
+        width: 50%;
+      }
+      .alt .group:focus-within .alt\\:group-focus-within\\:w-1\\/2 {
         width: 50%;
       }
       .test-1\\/2 .test-1\\/2\\:w-1\\/2 {

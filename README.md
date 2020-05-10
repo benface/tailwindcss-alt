@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This plugin adds a general-purpose `alt` (short for “alternate”) variant to Tailwind CSS, which can be used to change an element’s styles when one of its ancestors (possibly `body` or `html`) has a given class (`alt` by default, but can be customized). It can be used for toggling between two themes (think dark mode), or for components that have two distinct states you want to switch between via JavaScript (by adding/removing the `alt` class from the parent element).
+This plugin adds general-purpose “alternative” variants to Tailwind CSS, which can be used to change an element’s styles when one of its ancestors (such as `body` or `html`) has a given class. It can be useful for toggling between themes (think dark mode), or for components that have different states. You can create as many variants as you want with the `variants` option, which defaults to `['alt']`, meaning that by default, the plugin provides an `alt` variant (as well as `alt-hover`, `alt-focus`, etc.) that takes effect when the `alt` class is applied to a parent element. However, if you set the `variants` option to `['alt', 'dark']`, the plugin will provide all the `alt` variants as well as `dark` variants (`dark`, `dark-hover`, `dark-focus`, etc.) which take effect when the `dark` class is applied to a parent element. That way, you can toggle between multiple states. Which variant has precedence over the other one is determined by the order in which they’re used (and not the order in which they’re defined in the plugin’s options). For instance, in the example config below (see “Usage”), if you had `inline alt:block dark:hidden` on an element and both the `alt` and the `dark` classes were applied to the `html` element, `dark:hidden` would win because `dark` is listed after `alt` in the config’s `variants.display` key.
 
 ## Requirements
 
@@ -20,11 +20,11 @@ npm install tailwindcss-alt
 // tailwind.config.js
 module.exports = {
   variants: {
-    display: ['alt', 'alt-hover', 'alt-focus', 'alt-focus-within', 'alt-active', 'alt-visited', 'alt-disabled', 'alt-first', 'alt-last', 'alt-odd', 'alt-even', 'alt-group-hover', 'alt-group-focus', 'alt-group-focus-within', 'alt-group-active', 'alt-group-visited', 'alt-group-disabled', 'responsive'],
+    display: ['alt', 'alt-hover', 'alt-focus', 'alt-focus-within', 'alt-active', 'alt-visited', 'alt-disabled', 'alt-first', 'alt-last', 'alt-odd', 'alt-even', 'alt-group-hover', 'alt-group-focus', 'alt-group-focus-within', 'alt-group-active', 'alt-group-visited', 'alt-group-disabled', 'dark', 'dark-hover', 'responsive'],
   },
   plugins: [
     require('tailwindcss-alt')({
-      className: 'alt', // defaults to this value
+      variants: ['alt', 'dark'], // defaults to ['alt']
     }),
   ],
 };
@@ -102,6 +102,14 @@ The above configuration would generate the following CSS:
 }
 
 .alt .group:disabled .alt\:group-disabled\:block {
+  display: block;
+}
+
+.dark .dark\:block {
+  display: block;
+}
+
+.dark .dark\:hover\:block:hover {
   display: block;
 }
 
